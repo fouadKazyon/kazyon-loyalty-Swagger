@@ -73,7 +73,7 @@ components:
         statusCode:
           description:  statusCode=100 means user already exist and otp is null , statusCode=200 means new user was created and otp is number can be used || statusCode=300 invalid moblie number 
           type: string
-          example: "100 || 200 || 300"
+          example: "409 || 201 || 400"
         statusMessage:
           type: string
           example: "user Already exist || new user was created || invalid moblie number"
