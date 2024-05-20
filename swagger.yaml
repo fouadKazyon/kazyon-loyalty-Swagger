@@ -1,0 +1,82 @@
+openapi: 3.0.3
+info:
+  title: kazyon-loyalty
+  description: |-
+    This project consist of one api to create new user in kazyon-loyalty
+    <br> <h2>  API (create New Customer) </h2> will be called to create new user using mobile number.
+  
+
+  contact:
+    email: mohamed.nasr@kazyon.com
+  version: 1.0.01
+
+paths:
+  /createNewCustomer:
+    post:
+      tags:
+        - service
+      summary: create new user in kazyon-loyalty using customer mobileNumber
+      description: This service will be called to create new user
+      operationId: getServicesInfo
+      parameters:
+        - $ref: '#/components/parameters/storeCode'
+      requestBody:
+              description: Send all required parameters as input body that you are already aware of from the [GET] service
+              content:
+                application/json:
+                  schema:
+                      $ref: '#/components/schemas/newCustomerRequest'
+      
+
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                  $ref: '#/components/schemas/newCustomerResponse'      
+
+        '401':
+          $ref: '#/components/responses/UnauthorizedError'
+
+
+
+components:
+  parameters:
+    storeCode:
+      name: token
+      in: header
+      description: Bearer 
+      required: true
+      schema:
+        type: string
+  responses:
+    UnauthorizedError:
+      description: Authentication information is missing or invalid
+
+  schemas:
+     newCustomerRequest:
+        type: object
+        properties:
+          mobileNumber:
+            type: string
+            description: mobileNumber should be valid 
+            example: "01100112233"
+          
+     newCustomerResponse:
+      type: object
+      properties:
+        otp:
+          type: string
+          description: otp can be used to validate when statusCode = 200 
+          example: null || 246888 
+        statusCode:
+          description:  statusCode=100 means user already exist and otp is null , statusCode=200 means new user was created and otp is number can be used || statusCode=300 invalid moblie number 
+          type: string
+          example: "100 || 200 || 300"
+        statusMessage:
+          type: string
+          example: "user Already exist || new user was created || invalid moblie number"
+        
+
+    
