@@ -2,8 +2,10 @@ openapi: 3.0.3
 info:
   title: kazyon-loyalty
   description: |-
-    This project consist of one api to create new user in kazyon-loyalty
-    <br> <h2>  API (create New Customer) </h2> will be called to create new user using mobile number.
+    This project consist of two apis to create new user in kazyon-loyalty
+    <br> <h2>  API (create New Customer) </h2> will be called to create new user using mobile number and otp send to user.
+    <br> <h2>  API (validateOtp) </h2> will be called validate mobileNumber and otp.
+    
   
 
   contact:
@@ -22,9 +24,9 @@ paths:
         - $ref: '#/components/parameters/storeCode'
       requestBody:
                 content:
-                application/json:
-                  schema:
-                      $ref: '#/components/schemas/newCustomerRequest'
+                  application/json:
+                    schema:
+                        $ref: '#/components/schemas/newCustomerRequest'
       
 
       responses:
