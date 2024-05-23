@@ -116,7 +116,7 @@ components:
       type: object
       properties:
         statusCode:
-          description:  statusCode=409 means user already exist and otp is null , statusCode=201 means new user was created and otp is number can be used || statusCode=400 invalid moblie number 
+          description:  statusCode=409 means user already exist, statusCode=201 means new user was created and otp is number can be used || statusCode=400 invalid moblie number 
           type: string
           example: "409 || 201 || 400"
         statusMessage:
