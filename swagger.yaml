@@ -96,12 +96,12 @@ components:
         type: object
         properties:
           statusCode:
-            description:  statusCode=409 means mobile number not valid, statusCode=201 means new user was created || statusCode=400 invalid otp 
+            description:  statusCode=201 means new user was created || statusCode=400  otp or mobile number not valid
             type: string
-            example: "409 || 201 || 400"
+            example: "201 || 400"
           statusMessage:
             type: string
-            example: "invalid mobile number || otp is correct and new user was created || invalid otp"
+            example: "otp is correct and new user was created || otp or mobile number not valid"
           
      newCustomerRequest:
         type: object
@@ -116,7 +116,7 @@ components:
       type: object
       properties:
         statusCode:
-          description:  statusCode=409 means user already exist, statusCode=201 means new user was created and otp is number can be used || statusCode=400 invalid moblie number 
+          description:  statusCode=409 means user already exist, statusCode=201 means otp sent to user || statusCode=400 invalid moblie number 
           type: string
           example: "409 || 201 || 400"
         statusMessage:
