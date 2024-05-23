@@ -38,6 +38,33 @@ paths:
 
         '401':
           $ref: '#/components/responses/UnauthorizedError'
+          
+  /validateOtp:
+      post:
+        tags:
+          - service
+        summary: validate Otp for customer using mobileNumber and otp
+        description: This service will validate Otp
+        operationId: validateOtp
+        parameters:
+          - $ref: '#/components/parameters/storeCode'
+        requestBody:
+                description: Send all required parameters as input body that you are already aware of from the [POST] service
+                content:
+                  application/json:
+                    schema:
+                        $ref: '#/components/schemas/validateOtpRequest'
+        
+        responses:
+          '200':
+            description: successful operation
+            content:
+              application/json:
+                schema:
+                    $ref: '#/components/schemas/validateOTPResponse'      
+  
+          '401':
+            $ref: '#/components/responses/UnauthorizedError'
 
 
 
@@ -55,6 +82,27 @@ components:
       description: Authentication information is missing or invalid
 
   schemas:
+     validateOtpRequest:
+        type: object
+        properties:
+          mobileNumber:
+            type: string
+            description: mobileNumber should be valid 
+            example: "01100112233"
+          otp:
+            type: string
+            example: 246888 
+     validateOTPResponse:
+        type: object
+        properties:
+          statusCode:
+            description:  statusCode=409 means mobile number not valid, statusCode=201 means new user was created || statusCode=400 invalid otp 
+            type: string
+            example: "409 || 201 || 400"
+          statusMessage:
+            type: string
+            example: "invalid mobile number || otp is correct and new user was created || invalid otp"
+          
      newCustomerRequest:
         type: object
         properties:
@@ -63,20 +111,17 @@ components:
             description: mobileNumber should be valid 
             example: "01100112233"
           
+     
      newCustomerResponse:
       type: object
       properties:
-        otp:
-          type: string
-          description: otp can be used to validate when statusCode = 200 
-          example: null || 246888 
         statusCode:
-          description:  statusCode=100 means user already exist and otp is null , statusCode=200 means new user was created and otp is number can be used || statusCode=300 invalid moblie number 
+          description:  statusCode=409 means user already exist and otp is null , statusCode=201 means new user was created and otp is number can be used || statusCode=400 invalid moblie number 
           type: string
           example: "409 || 201 || 400"
         statusMessage:
           type: string
-          example: "user Already exist || new user was created || invalid moblie number"
+          example: "user Already exist || otp sent to user || invalid moblie number"
         
 
     
