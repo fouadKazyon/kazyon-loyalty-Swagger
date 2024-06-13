@@ -110,6 +110,10 @@ components:
             type: string
             description: mobileNumber should be valid 
             example: "01100112233"
+          storeId: 
+            type: string
+            description: storeId
+            example: 1533
           
      
      newCustomerResponse:
