@@ -21,7 +21,8 @@ paths:
       description: This service will be called to create new user
       operationId: getServicesInfo
       parameters:
-        - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/authorizationHeaderUsername'
+          - $ref: '#/components/parameters/authorizationHeaderPassword'
       requestBody:
                 content:
                   application/json:
@@ -48,7 +49,8 @@ paths:
         description: This service will validate Otp
         operationId: validateOtp
         parameters:
-          - $ref: '#/components/parameters/storeCode'
+          - $ref: '#/components/parameters/authorizationHeaderUsername'
+          - $ref: '#/components/parameters/authorizationHeaderPassword'
         requestBody:
                 content:
                   application/json:
@@ -65,18 +67,29 @@ paths:
   
           '401':
             $ref: '#/components/responses/UnauthorizedError'
+            
+ 
+ 
 
-
-
-components:
+components:  
   parameters:
-    storeCode:
-      name: token
-      in: header
-      description: Bearer 
+    authorizationHeaderUsername:
+      name: Username
+      in: header 
       required: true
       schema:
         type: string
+        example: 1
+
+    authorizationHeaderPassword:
+      name: Password
+      in: header 
+      required: true
+      schema:
+        type: string
+        example: dXNlcm5hbWU6cGFz 
+        
+        
   responses:
     UnauthorizedError:
       description: Authentication information is missing or invalid
@@ -120,12 +133,12 @@ components:
       type: object
       properties:
         statusCode:
-          description:  statusCode=409 means user already exist, statusCode=201 means otp sent to user || statusCode=400 invalid moblie number 
+          description:  statusCode=409 means user already exist, statusCode=201 Customer created and OTP Sent || statusCode=400 invalid moblie number || statusCode=200 otp sent to user 
           type: string
-          example: "409 || 201 || 400"
+          example: "409 || 201 || 400 || 200"
         statusMessage:
           type: string
-          example: "user Already exist || otp sent to user || invalid moblie number"
+          example: "user Already exist || Customer created and OTP Sent || invalid moblie number || otp sent to user"
         
 
     
